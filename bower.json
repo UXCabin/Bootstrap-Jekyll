@@ -1,10 +1,7 @@
 {
   "name": "bootstrap-jekyll",
   "version": "0.0.1",
-  "homepage": "",
-  "authors": [
-    ""
-  ],
+ 
   "description": "Bootstrap with Jekyll, Gulp, Sass",
   "main": "index.html",
   "keywords": [
