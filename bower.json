@@ -1,9 +1,9 @@
 {
   "name": "bootstrap-jekyll",
   "version": "0.0.1",
-  "homepage": "http://www.minh.io",
+  "homepage": "",
   "authors": [
-    "minh.90.nguyen@gmail.com"
+    ""
   ],
   "description": "Bootstrap with Jekyll, Gulp, Sass",
   "main": "index.html",
