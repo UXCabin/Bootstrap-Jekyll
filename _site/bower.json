@@ -1,10 +1,7 @@
 {
   "name": "bootstrap-jekyll",
   "version": "0.0.1",
-  "homepage": "http://www.minh.io",
-  "authors": [
-    "minh.90.nguyen@gmail.com"
-  ],
+ 
   "description": "Bootstrap with Jekyll, Gulp, Sass",
   "main": "index.html",
   "keywords": [
@@ -24,9 +21,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-sass": "~3.3.4",
     "normalize-scss": "~3.0.2",
     "font-awesome": "~4.3.0"
   }
 }
-
