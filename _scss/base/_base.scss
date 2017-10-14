@@ -1,0 +1,10 @@
+html {
+  font-size: 100%;
+}
+
+body {
+  background: white;
+  @include antialiasing(antialiased);
+}
+
+
