@@ -5,7 +5,12 @@ title: Bootstrap Framework
 
 <div class="container">
 	<div id="home">
-		<h1>Bootstrap Framework</h1>
+		<h1>Jobs</h1>
+<ul>
+  {% for track in site.data.jobs %}
+    <li>{{ track.title }}</li>
+  {% endfor %}    
+</ul>
 	</div>
 </div>
 
