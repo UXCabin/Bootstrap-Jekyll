@@ -6,7 +6,7 @@ var prefix = require('gulp-autoprefixer');
 var cp = require('child_process');
 var minifyCSS = require('gulp-minify-css');
 var rename = require('gulp-rename');
-
+var ghPages = require('gulp-gh-pages');
 var messages = {
   jekyllBuild: '<span style="color: grey">Running:</span> $ jekyll build'
 };
@@ -55,6 +55,11 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('assets/css'))
     .pipe(browserSync.reload({stream: true}));
 
+});
+
+gulp.task('deploy', function() {
+  return gulp.src('_site/**/*')
+    .pipe(ghPages());
 });
 
 /**
