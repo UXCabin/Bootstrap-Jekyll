@@ -7,6 +7,7 @@ var cp = require('child_process');
 var minifyCSS = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var ghPages = require('gulp-gh-pages');
+var copydir = require('copy-dir');
 var messages = {
   jekyllBuild: '<span style="color: grey">Running:</span> $ jekyll build'
 };
@@ -71,8 +72,15 @@ gulp.task('watch', function () {
   gulp.watch(['*.html', '_layouts/*.html', '_includes/**/*.html', '_posts/*'], ['jekyll-rebuild']);
 });
 
+gulp.task('copy', function() {
+    gulp.src(['_site/**/*'])
+        .pipe(gulp.dest('docs'))
+});
 /**
  * Default task, running just `gulp` will compile the sass,
  * compile the jekyll site, launch BrowserSync & watch files.
  */
 gulp.task('default', ['browser-sync', 'watch']);
+
+// Push to production
+gulp.task('production', ['watch', 'minify-css', 'minify-html', 'copy'])
