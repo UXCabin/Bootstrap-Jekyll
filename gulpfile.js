@@ -9,7 +9,52 @@ var rename = require('gulp-rename');
 var ghPages = require('gulp-gh-pages');
 var copydir = require('copy-dir');
 var messages = {
-  jekyllBuild: '<span style="color: grey">Running:</span> $ jekyll build'
+  jekyllBuild: '<span style="color: grey">Running:</span> $ jekyll build',
+  cssError: '<span style="color: grey">CSS SYNTAX</span> SCSS build error'
+
+};
+
+
+/** 
+  * SCSS Notification on failed build 
+  */
+
+// SCSS syntax error handling  requirements
+var notify = require('gulp-notify');
+var plumber = require('gulp-plumber');
+var gutil = require('gulp-util');
+
+// SCSS syntax error function
+
+var onError = function(err) {
+    var lineNumber = (err.lineNumber) ? 'LINE ' + err.lineNumber + ' -- ' : '';
+
+    // macOS Native notification
+    // Wait & timeout make notifications go away from the panel, so they don't linger
+    notify({
+        title: 'Task failed [' + err.plugin + ']',
+        message: lineNumber + 'See console.',
+        sound: 'Basso',
+        wait: false,
+        timeout: 5
+    }).write(err);
+
+    // Browsersync notification, in case 'do not distrub' is on
+    browserSync.notify(messages.cssError);
+
+    // Report the error on the console
+    var report = '';
+    var chalk = gutil.colors.bgMagenta.white;
+
+    // Pretty reporting for easier spotting
+    report += chalk('TASK:') + ' [' + err.plugin + ']\n';
+    report += chalk('ISSUE:') + ' ' + err.message + '\n';
+    if (err.lineNumber) { report += chalk('LINE:') + ' ' + err.lineNumber + '\n'; }
+    if (err.fileName) { report += chalk('FILE:') + ' ' + err.fileName + '\n'; }
+    console.log(report);
+
+    // Prevent the 'watch' task from stopping
+    this.emit('end');
 };
 
 /**
@@ -44,10 +89,11 @@ gulp.task('browser-sync', ['sass', 'jekyll-build'], function () {
  */
 gulp.task('sass', function () {
   return gulp.src('_scss/style.scss')
+    .pipe(plumber({errorHandler: onError}))
     .pipe(sass({
       errLogToConsole: true,
       includePaths: ['scss'],
-      onError: browserSync.notify
+      onError: onError
     }))
     .pipe(prefix(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
     .pipe(gulp.dest('assets/css'))
