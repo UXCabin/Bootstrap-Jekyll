@@ -1,16 +1,50 @@
 ---
 layout: default
-title: Bootstrap Framework
+title: Bootstrap Jekyll
 ---
 
+
+
 <div class="container">
-	<div id="home">
-		<h1>Jobs</h1>
-<ul>
-  {% for track in site.data.jobs %}
-    <li>{{ track.title }}</li>
-  {% endfor %}    
-</ul>
-	</div>
+    <h1>Welcome</h1>
+    <p>Jekyll can do some really handy things. Power that with a gulp build system and bootstrap (or any framework you'd like) and you have a powerful static site builder</p>
+    <h2>Front-Matter</h2>
+    <p>Pull YAML data from the top of the page</p>
+    <ul>
+        <li>{{ page.title }}</li>
+    </ul>
+    <h2>Display all posts</h2> {% for post in site.posts %}
+    <h4><a href="{{ post.url }}">{{ post.title }}</a></h4>
+    <div class="badge badge-info">category: {{post.category}}</div>
+    <div class="badge badge-warning">tags: {{ post.tags | array_to_sentence_string }}</div>
+    <p>{{ post.description }}</p>
+    {% endfor %}
+    <h2>Display a YML data file</h2>
+    <ul>
+        {% for member in site.data.members %}
+        <li>
+            {{ member.name }} | @{{member.github}}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Selected Navigation</h2>
+    <ul id="nav">
+    <li{% if page.url == '/index.html' %} class="active"{% endif %}>
+    <a href="/index.html">index</a>
+    </li>
+    <li{% if page.url == '/news.html' %} class="active"{% endif %}>
+    <a href="/news.html">News</a>
+    </li>
+    <li{% if page.url == '/contact.html' %} class="active"{% endif %}>
+    <a href="/contact.html">Contact</a>
+    </li>
+  </ul>
+
+This seems like a potentially better solition https://stackoverflow.com/questions/25023629/setting-active-links-in-jekyll-not-working
+
+<br>
+jekylls solution https://jekyllrb.com/tutorials/navigation/#scenario-6-applying-the-active-class-for-the-current-page
+
 </div>
 

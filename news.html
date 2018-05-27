@@ -1,0 +1,22 @@
+---
+layout: default
+title: Bootstrap Jekyll
+---
+
+
+
+<div class="container">
+    <h2>Selected Navigation</h2>
+    <ul id="nav">
+    <li{% if page.url == 'index.html' %} class="active"{% endif %}>
+    <a href="index.html">Index</a>
+    </li>
+    <li{% if page.url == '/news.html' %} class="active"{% endif %}>
+    <a href="/news.html">News</a>
+    </li>
+    <li{% if page.url == '/contact.html' %} class="active"{% endif %}>
+    <a href="/contact.html">Contact</a>
+    </li>
+  </ul>
+</div>
+
