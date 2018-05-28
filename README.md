@@ -1,20 +1,10 @@
-Bootstrap Jekyll
-=============================
+# Lumber
+The starter front-end repo for UX Cabin projects. It's based off [jekyll-gulp-sass-browser-sync](https://github.com/shakyShane/jekyll-gulp-sass-browser-sync) with a few modifications and enhancements
 
-A starter project with Jekyll, GulpJS, Sass, AutoPrefixer, BrowserSync, Bootstrap Sass. This is an extension to
-jekyll-gulp-sass-browser-sync.
+## Dependencies 
+- [Jekyll](https://jekyllrb.com/)
+- [NPM](https://www.npmjs.com/) 
+- [Gulp](https://gulpjs.com/)
 
-[Bootstrap Sass Variables](https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_variables.scss)
-
-
-jekyll-gulp-sass-browser-sync
-=============================
-
-A starter project including full setup for Jekyll, GulpJS, SASS, AutoPrefixer &amp; BrowserSync
-
-
-Switch between Bootstrap 3 and 4
-================================
-Activate stylesheet of required version from the following file:
-root > scss > style.scss
-(links are commented)
+## Installation Instructions
+`npm install` then run `gulp` to spin up your local server and start browsersync.
