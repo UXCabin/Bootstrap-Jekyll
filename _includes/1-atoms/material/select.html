@@ -1,0 +1,69 @@
+{% if include.disabled %}
+	{% assign propclass = 'mdc-select--disabled' %}
+	{% assign prop = 'disabled' %}
+{% else %}
+	{% assign propclass = '' %}
+	{% assign prop = '' %}
+{% endif %}
+
+{% if include.value %}
+	{% assign labelclass = 'mdc-floating-label--float-above' %}
+{% else %}
+	{% assign labelclass = '' %}
+{% endif %}
+
+<div class="mdc-select mdc-select--box w-100 {{include.validation | default: ''}} {{class}} {{propclass}}" data-mdc-auto-init="MDCSelect">
+	<select class="mdc-select__native-control" {{prop}}>
+		<option value="" disabled selected></option>
+		{% if include.opts %}
+			{% assign selects = include.opts | split: ', ' %}
+		{% else %}
+			{% assign opts = 'Option 1, Option 2, Option 3' | split: ', ' %}
+		{% endif %}
+		{% for select in selects %}
+			
+			<option {% if select contains '--selected' %} selected {% endif %} value="{{select | replace: ' ', '-' | downcase}}">
+				{{select | remove: ' --selected'}}
+			</option>
+
+		{% endfor %}
+		
+	</select>
+	<label class="mdc-floating-label mdc-label-overrides {{labelclass}} {{include.value}}">{{include.label | default: 'Select label'}}</label>
+	<div class="mdc-line-ripple"></div>
+</div>
+
+{% if include.helptext  %}
+	<p class="mdc-text-field-helper-text" id="{{include.name}}-helptext">{{include.helptext}}</p>
+{% endif %}
+
+{% if include.validation == 'isinvalid' %}
+	<span class="mdc-text-field-helper-text input-error-message">{{include.errormsg}}</span>
+{% endif %}
+
+
+{% assign atomic_props = 'text, href, modal, closemodal, collapse' %}
+
+
+<div class="atomic__description">
+	To render out multiple select options, please separate them by a comma inside a string: <br />
+	<code>opts = 'Option 1, Option 2, Option 3'</code><br />
+	If you'd like to preselect an option, append <code>--selected</code> to the option, like so: <br />
+	<code>opts = 'Option 1 --selected, Option 2, Option 3'</code><br />
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>

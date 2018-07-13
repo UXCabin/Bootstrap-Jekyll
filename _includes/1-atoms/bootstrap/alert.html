@@ -1,0 +1,41 @@
+{% if include.type %}
+	{% assign class = include.type | prepend: 'alert-' %}
+{% else %}
+	{% assign class = 'alert-success' %}
+{% endif %}
+
+<div class="alert {{class}} alert-dismissible fade show" role="alert">
+	{{ include.text | default: 'Alert text'}} 
+
+	{% if include.href %} 
+		<a href="{{include.href}}" class="alert-link">{{include.linktext | default: 'link text'}}</a>
+	{% endif %}
+
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+
+{% assign atomic_props = 'class --mandatory, href' %}
+
+
+<div class="atomic__description">
+	
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>

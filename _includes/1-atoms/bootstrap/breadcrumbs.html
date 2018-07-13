@@ -1,0 +1,47 @@
+
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+
+		{% if include.crumbs %}
+			{% assign crumbs = include.crumbs | split: ', ' %}
+		{% else %}
+			{% assign crumbs = 'Link 1, Link 2, Link 3' | split: ', ' %}
+		{% endif %}
+			{% for crumb in crumbs %}
+				
+				{% if crumbs.last == crumb %}
+					<li class="breadcrumb-item active" aria-current="{{ crumb }}">{{ crumb }}</li>
+				{% else %}
+					<li class="breadcrumb-item"><a href="#">{{ crumb }}</a></li>
+				{% endif %}
+
+
+			{% endfor %}
+
+	</ol>
+</nav>
+
+
+{% assign atomic_props = 'crumbs --mandatory' %}
+
+
+<div class="atomic__description">
+	To render out multiple breadcrumbs, please separate them by a comma inside a string: <br />
+	<code>crumbs = 'Option 1, Option 2, Option 3'</code><br />
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>

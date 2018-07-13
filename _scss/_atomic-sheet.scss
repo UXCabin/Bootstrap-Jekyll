@@ -1,0 +1,88 @@
+.atomic__description,.atomic__props,.atomic__contains, .atomic-title{
+	display: none;
+}
+.atomic{
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: $fade;
+	z-index: 5;
+	h1{
+		text-align: center;
+		padding: 20px 0;
+		text-transform: uppercase;
+		font-weight: 600;
+	}
+	.container{
+		background: white;
+		margin-top: 1rem;
+		marign-bottom: 1rem;
+	}
+	section{
+		padding: 1rem;
+		border-bottom: 1px solid $fade;
+	}
+	.atom, .molecule, .organism, .template{
+		padding: 10px;
+		border-radius: 5px;
+	}
+	.atomic__description{
+		margin-top: 1rem;
+	}
+	.atomic__props{
+		ul{
+			list-style: none;
+			margin-top: 10px;
+			padding: 0;
+		}
+		h6{
+			margin-top: 1rem;
+		}
+	}
+	.atomic__description,.atomic__props,.atomic__contains,.atomic-title{
+		display: block;
+	}
+}
+
+
+.components-list{
+	margin:  40px 0;
+}
+.components-container{
+	list-style:none;
+	background:white;
+	padding:20px;
+}
+.component-holder{
+	display:block; 
+	margin-bottom:5px;
+}
+kbd{
+	display: block;
+	background-color: $bg-dark;
+}
+
+.list-group{
+	list-style-type: disc;
+}
+.dot{
+	height: 15px;
+	width: 15px;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+	line-height: 1;
+	margin-top: 5px;
+	&.blue-circle{
+		background-color: #97C8E7;
+	}
+	&.yellow-circle{
+		background-color: #E2E09C;
+	}
+	&.red-circle{
+		background-color: #ED9AA2;
+	}
+
+}

@@ -1,0 +1,65 @@
+{% if include.disabled %}
+	{% assign propclass = 'mdc-text-field--disabled' %}
+	{% assign prop = 'disabled' %}
+{% else %}
+	{% assign propclass = '' %}
+	{% assign prop = '' %}
+{% endif %}
+
+{% if include.required %}
+	{% assign reqprop = 'required' %}
+{% else %}
+	{% assign reqprop = '' %}
+{% endif %}
+
+{% if include.value %}
+	{% assign labelclass = 'mdc-floating-label--float-above' %}
+	{% assign textfieldclass = 'mdc-text-field--upgraded' %}
+{% else %}
+	{% assign labelclass = '' %}
+	{% assign textfieldclass = '' %}
+{% endif %}
+
+{% if include.class %}
+	{% assign class = include.class %}
+{% else %}
+	{% assign class = '' %}
+{% endif %}
+
+
+<div class="mdc-container mdc-text-field mdc-text-field--box {{class}} {{propclass}} {{include.name}} {{textfieldclass}} {{include.validation | default: ''}}" data-error-msg="{{include.errormsg | default : ''}}">
+	<input type="text" class="mdc-text-field__input" id="{{include.name}}-input" name="{{include.name}}" value="{{include.value | default: ''}}" {{prop}} {{reqprop}}
+	aria-controls="{{include.name}}-helptext"
+	aria-describedby="{{include.name}}-helptext">
+	<label class="mdc-floating-label mdc-label-overrides {{labelclass}}" for="{{include.name}}-input">{{include.label | default: 'Input label'}}</label>
+	<div class="mdc-line-ripple"></div>
+</div>
+{% if include.helptext  %}
+	<p class="mdc-text-field-helper-text" id="{{include.name}}-helptext">{{include.helptext}}</p>
+{% endif %}
+
+<div class="inline-error-container">
+</div>
+
+{% assign atomic_props = 'label, name, helptext, value, required, disabled, class' %}
+
+
+<div class="atomic__description">
+	
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>

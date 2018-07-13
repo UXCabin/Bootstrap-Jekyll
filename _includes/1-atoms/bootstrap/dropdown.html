@@ -1,0 +1,53 @@
+{% if include.type %}
+	{% assign type = include.type | prepend: 'btn-' %}
+{% else %}
+	{% assign type = '' %}
+{% endif %}
+
+<div class="dropdown">
+	<button class="btn {{type}} dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		{{include.text | default: 'Dropdown text'}}
+	</button>
+	<div class="dropdown-menu">
+		{% if include.opts %}
+			{% assign opts = include.opts | split: ', ' %}
+		{% else %}
+			{% assign opts = 'Option 1, Option 2, split, Option 3' | split: ', ' %}
+		{% endif %}
+		{% for opt in opts %}
+			{% if opt == 'split' %}
+				<div class="dropdown-divider"></div>
+			{% else %}
+				<a class="dropdown-item" href="#">{{opt}}</a>
+			{% endif %}
+		{% endfor %}
+	</div>
+</div>
+
+
+
+{% assign atomic_props = 'type, text, opts' %}
+
+
+<div class="atomic__description">
+	To render out multiple dropdown options, please separate them by a comma inside a string: <br />
+	<code>opts = 'Option 1, Option 2, Option 3'</code><br />
+	If you'd like render out a split, add it to the string where you'd like it like so:<br />
+	<code>opts = 'Option 1, Option 2, split, Option 3'</code><br />
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>

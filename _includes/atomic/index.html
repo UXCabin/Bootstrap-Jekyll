@@ -1,0 +1,689 @@
+<div class="atomic">
+	<div class="container">
+		<h1>Atomic components</h1>
+			<section id="1-atoms/bootstrap/alert">
+				<h4>bootstrap/alert.html</h4>
+				{% if include.type %}
+	{% assign class = include.type | prepend: 'alert-' %}
+{% else %}
+	{% assign class = 'alert-success' %}
+{% endif %}
+
+<div class="alert {{class}} alert-dismissible fade show" role="alert">
+	{{ include.text | default: 'Alert text'}} 
+
+	{% if include.href %} 
+		<a href="{{include.href}}" class="alert-link">{{include.linktext | default: 'link text'}}</a>
+	{% endif %}
+
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+
+{% assign atomic_props = 'class --mandatory, href' %}
+
+
+<div class="atomic__description">
+	
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+			</section>
+			<section id="1-atoms/bootstrap/badge">
+				<h4>bootstrap/badge.html</h4>
+				{% if include.type %}
+	{% assign class = include.type | prepend: 'badge-' %}
+{% else %}
+	{% assign class = 'badge-success' %}
+{% endif %}
+
+
+<span class="badge {{class}}">
+	 {{ include.text | default: 'Badge text' }}
+</span>
+
+
+{% assign atomic_props = 'class --mandatory, href' %}
+
+
+<div class="atomic__description">
+	
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+			</section>
+			<section id="1-atoms/bootstrap/breadcrumbs">
+				<h4>bootstrap/breadcrumbs.html</h4>
+				
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+
+		{% if include.crumbs %}
+			{% assign crumbs = include.crumbs | split: ', ' %}
+		{% else %}
+			{% assign crumbs = 'Link 1, Link 2, Link 3' | split: ', ' %}
+		{% endif %}
+			{% for crumb in crumbs %}
+				
+				{% if crumbs.last == crumb %}
+					<li class="breadcrumb-item active" aria-current="{{ crumb }}">{{ crumb }}</li>
+				{% else %}
+					<li class="breadcrumb-item"><a href="#">{{ crumb }}</a></li>
+				{% endif %}
+
+
+			{% endfor %}
+
+	</ol>
+</nav>
+
+
+{% assign atomic_props = 'crumbs --mandatory' %}
+
+
+<div class="atomic__description">
+	To render out multiple breadcrumbs, please separate them by a comma inside a string: <br />
+	<code>crumbs = 'Option 1, Option 2, Option 3'</code><br />
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+			</section>
+			<section id="1-atoms/bootstrap/btn">
+				<h4>bootstrap/btn.html</h4>
+				{% if include.class %}
+	{% assign class = include.class %}
+{% else %}
+	{% assign class = '' %}
+{% endif %}
+
+{% if include.disabled %}
+	{% assign prop = 'disabled' %}
+{% else %}
+	{% assign prop = '' %}
+{% endif %}
+
+{% if include.type %}
+	{% assign type = include.type | prepend: 'btn-' %}
+{% else %}
+	{% assign type = '' %}
+{% endif %}
+
+<a 
+	class="btn {{class}} {{prop}} {{type}}" 
+	{% if include.collapse %}
+		data-toggle="collapse" 
+		href="#{{include.collapse}}"
+		aria-expanded="false" 
+		aria-controls="{{include.collapse}}"
+	{% elsif include.modal %}
+		data-toggle="modal" 
+		data-target="#{{include.modal}}"
+		href="#"
+	{% elsif include.closemodal %}
+		data-dismiss="modal" 
+		aria-label="Close"
+		href="#" 
+	{% else %}
+		href = "{{include.href | default: '#'}}"
+	{% endif %}
+	{{prop}}
+	>
+	{{include.text | default: 'Button text'}}
+</a>
+
+
+{% assign atomic_props = 'text, href, modal, closemodal, collapse, type' %}
+
+
+<div class="atomic__description">
+	
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li><code>{{prop}}</code></li>
+		{% endfor %}
+	</ul>
+</div>
+			</section>
+			<section id="1-atoms/bootstrap/carousel">
+				<h4>bootstrap/carousel.html</h4>
+				{% if include.images %}
+	{% assign images = include.imgs | split: ', ' %}
+{% else %}
+	{% assign images = 'carousel_1.jpg, carousel_2.jpg, carousel_3.jpg' | split: ', '  %}
+{% endif %}
+{% assign num = images | size %}
+
+<div class="carousel slide" data-ride="carousel">
+	<ol class="carousel-indicators">
+		{% for i in (1..num) %}
+			<li 
+				data-target="#carouselExampleIndicators" 
+				data-slide-to="{{i}}" 
+				{% if i == 1 %} class="active" {% endif %}></li>
+		{% endfor %}
+	</ol>
+	<div class="carousel-inner">
+		{% for img in images %}
+			<div class="carousel-item {% if images.first == img %} active {% endif %}">
+				<img class="d-block w-100" src="{{base}}/assets/img/{{img}}" alt="{{img | remove: '.jpg' }}">
+			</div>
+		{% endfor %}
+	</div>
+	<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="sr-only">Previous</span>
+	</a>
+	<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="sr-only">Next</span>
+	</a>
+</div>
+
+
+{% assign atomic_props = 'crumbs --mandatory' %}
+
+
+<div class="atomic__description">
+	To render out multiple images, from <code>assets/img/</code> folder, please separate them by a comma inside a string: <br />
+	<code>imgs = 'image1.jpg, image2.jpg, image3.jpg'</code><br />
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+			</section>
+			<section id="1-atoms/bootstrap/dropdown">
+				<h4>bootstrap/dropdown.html</h4>
+				{% if include.type %}
+	{% assign type = include.type | prepend: 'btn-' %}
+{% else %}
+	{% assign type = '' %}
+{% endif %}
+
+<div class="dropdown">
+	<button class="btn {{type}} dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		{{include.text | default: 'Dropdown text'}}
+	</button>
+	<div class="dropdown-menu">
+		{% if include.opts %}
+			{% assign opts = include.opts | split: ', ' %}
+		{% else %}
+			{% assign opts = 'Option 1, Option 2, split, Option 3' | split: ', ' %}
+		{% endif %}
+		{% for opt in opts %}
+			{% if opt == 'split' %}
+				<div class="dropdown-divider"></div>
+			{% else %}
+				<a class="dropdown-item" href="#">{{opt}}</a>
+			{% endif %}
+		{% endfor %}
+	</div>
+</div>
+
+
+
+{% assign atomic_props = 'type, text, opts' %}
+
+
+<div class="atomic__description">
+	To render out multiple dropdown options, please separate them by a comma inside a string: <br />
+	<code>opts = 'Option 1, Option 2, Option 3'</code><br />
+	If you'd like render out a split, add it to the string where you'd like it like so:<br />
+	<code>opts = 'Option 1, Option 2, split, Option 3'</code><br />
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+			</section>
+			<section id="1-atoms/bootstrap/input">
+				<h4>bootstrap/input.html</h4>
+				{% if include.label %}
+	<label for="{{include.label | replace: ' ', '' | downcase }}">{{include.label}}</label>
+{% endif %}
+
+{% if include.disabled %}
+	{% assign prop = 'disabled' %}
+{% else %}
+	{% assign prop = '' %}
+{% endif %}
+
+{% if include.required %}
+	{% assign reqprop = 'required' %}
+{% else %}
+	{% assign reqprop = '' %}
+{% endif %}
+
+
+
+<div class="input-group mb-3">
+
+	{% if include.align == 'left' %}
+		<div class="input-group-prepend">
+			<span class="input-group-text">{{include.addon}}</span>
+		</div>
+	{% endif %}
+
+	<input 
+		type="text" 
+		class="form-control" 
+		placeholder="{{include.placeholder | default: 'Input placeholder'}}" 
+		aria-label="{{include.label | default: include.placeholder}}"
+		value="{{include.value | default: ''}}"
+		{{prop}}
+		{{reqprop}}>
+
+	{% if include.align == 'right' %}
+		<div class="input-group-append">
+			<span class="input-group-text">{{include.addon}}</span>
+	  	</div>
+	{% endif %}
+
+	{% if include.helptext %}
+		<small class="form-text text-muted d-block w-100">{{include.helptext}}</small>		
+	{% endif %}
+
+</div>
+
+
+{% assign atomic_props = 'label, placeholder, helptext, addon, align, disabled' %}
+
+
+<div class="atomic__description">
+	To include an addon, you must specificy align (left/right), else the addon will not show up. <br />
+	Example: <code>addon: '@' align: 'left'</code>
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+			</section>
+			<section id="1-atoms/material/button">
+				<h4>material/button.html</h4>
+				{% if include.class %}
+	{% assign class = include.class %}
+{% else %}
+	{% assign class = '' %}
+{% endif %}
+
+{% if include.disabled %}
+	{% assign prop = 'disabled' | prepend: 'mdc-' %}
+{% else %}
+	{% assign prop = '' %}
+{% endif %}
+
+{% if include.type %}
+	{% assign type = include.type | prepend: 'mdc-' %}
+{% else %}
+	{% assign type = '' %}
+{% endif %}
+
+<a 
+	class="mdc-button {{class}} {{prop}}" 
+	{% if include.collapse %}
+		data-toggle="collapse" 
+		href="#{{include.collapse}}"
+		aria-expanded="false" 
+		aria-controls="{{include.collapse}}"
+	{% elsif include.modal %}
+		data-toggle="modal" 
+		data-target="#{{include.modal}}"
+		href="#"
+	{% elsif include.closemodal %}
+		data-dismiss="modal" 
+		aria-label="Close"
+		href="#" 
+	{% else %}
+		href = "{{include.href | default: '#'}}"
+	{% endif %}
+	{{prop | remove: 'mdc-'}}
+	>
+	{{include.text | default: 'Button text'}}
+</a>
+
+
+{% assign atomic_props = 'text, href, modal, closemodal, collapse' %}
+
+
+<div class="atomic__description">
+	
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+			</section>
+			<section id="1-atoms/material/checkbox">
+				<h4>material/checkbox.html</h4>
+				{% if include.checked %}
+	{% assign prop = 'checked' %}
+{% else %}
+	{% assign prop = '' %}
+{% endif %}
+
+<div class="mdc-form-field">
+	<div class="mdc-checkbox">
+		<input type="checkbox" class="mdc-checkbox__native-control" {{prop}} />
+		<div class="mdc-checkbox__background">
+			<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+			<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+		</svg>
+		<div class="mdc-checkbox__mixedmark"></div>
+	</div>
+</div>
+	<label for="checkbox-1">{{ include.label | default: 'Checkbox label'}}</label>
+</div>
+
+{% assign atomic_props = 'label, checked' %}
+
+
+<div class="atomic__description">
+	
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+			</section>
+			<section id="1-atoms/material/input">
+				<h4>material/input.html</h4>
+				{% if include.disabled %}
+	{% assign propclass = 'mdc-text-field--disabled' %}
+	{% assign prop = 'disabled' %}
+{% else %}
+	{% assign propclass = '' %}
+	{% assign prop = '' %}
+{% endif %}
+
+{% if include.required %}
+	{% assign reqprop = 'required' %}
+{% else %}
+	{% assign reqprop = '' %}
+{% endif %}
+
+{% if include.value %}
+	{% assign labelclass = 'mdc-floating-label--float-above' %}
+	{% assign textfieldclass = 'mdc-text-field--upgraded' %}
+{% else %}
+	{% assign labelclass = '' %}
+	{% assign textfieldclass = '' %}
+{% endif %}
+
+{% if include.class %}
+	{% assign class = include.class %}
+{% else %}
+	{% assign class = '' %}
+{% endif %}
+
+
+<div class="mdc-container mdc-text-field mdc-text-field--box {{class}} {{propclass}} {{include.name}} {{textfieldclass}} {{include.validation | default: ''}}" data-error-msg="{{include.errormsg | default : ''}}">
+	<input type="text" class="mdc-text-field__input" id="{{include.name}}-input" name="{{include.name}}" value="{{include.value | default: ''}}" {{prop}} {{reqprop}}
+	aria-controls="{{include.name}}-helptext"
+	aria-describedby="{{include.name}}-helptext">
+	<label class="mdc-floating-label mdc-label-overrides {{labelclass}}" for="{{include.name}}-input">{{include.label | default: 'Input label'}}</label>
+	<div class="mdc-line-ripple"></div>
+</div>
+{% if include.helptext  %}
+	<p class="mdc-text-field-helper-text" id="{{include.name}}-helptext">{{include.helptext}}</p>
+{% endif %}
+
+<div class="inline-error-container">
+</div>
+
+{% assign atomic_props = 'label, name, helptext, value, required, disabled, class' %}
+
+
+<div class="atomic__description">
+	
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+			</section>
+			<section id="1-atoms/material/radio">
+				<h4>material/radio.html</h4>
+				<label class="d-block mt-3 mb-0"><small>{{include.label}}</small></label>
+<div class="mdc-form-field">
+	{% if include.opts %}
+		{% assign radios = include.opts | split: ', ' %}
+	{% else %}
+		{% assign radios = 'Option 1, Option 2, Option 3' | split: ', ' %}
+	{% endif %}
+
+	{% for radio in radios %}
+
+		<div class="mdc-radio">
+			<input class="mdc-radio__native-control" type="radio" id="radio-{{forloop.index}}" name="{{include.label | downcase | default: 'radio'}}" value=""
+			{% if radio contains '--selected' %} checked {% endif %}>
+			<div class="mdc-radio__background">
+				<div class="mdc-radio__outer-circle"></div>
+				<div class="mdc-radio__inner-circle"></div>
+			</div>
+		</div>
+		<label for="radio-{{forloop.index}}" class="mb-0 pl-0">{{radio | remove: ' --selected'}}</label>
+	{% endfor %}
+
+</div>
+
+{% assign atomic_props = 'label, opts' %}
+
+
+<div class="atomic__description">
+	To render out multiple radio options, please separate them by a comma inside a string: <br />
+	<code>opts = 'Option 1, Option 2, Option 3'</code><br />
+	If you'd like to preselect an option, append <code>--selected</code> to the option, like so: <br />
+	<code>opts = 'Option 1 --selected, Option 2, Option 3'</code><br />
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+
+			</section>
+			<section id="1-atoms/material/select">
+				<h4>material/select.html</h4>
+				{% if include.disabled %}
+	{% assign propclass = 'mdc-select--disabled' %}
+	{% assign prop = 'disabled' %}
+{% else %}
+	{% assign propclass = '' %}
+	{% assign prop = '' %}
+{% endif %}
+
+{% if include.value %}
+	{% assign labelclass = 'mdc-floating-label--float-above' %}
+{% else %}
+	{% assign labelclass = '' %}
+{% endif %}
+
+<div class="mdc-select mdc-select--box w-100 {{include.validation | default: ''}} {{class}} {{propclass}}" data-mdc-auto-init="MDCSelect">
+	<select class="mdc-select__native-control" {{prop}}>
+		<option value="" disabled selected></option>
+		{% if include.opts %}
+			{% assign selects = include.opts | split: ', ' %}
+		{% else %}
+			{% assign opts = 'Option 1, Option 2, Option 3' | split: ', ' %}
+		{% endif %}
+		{% for select in selects %}
+			
+			<option {% if select contains '--selected' %} selected {% endif %} value="{{select | replace: ' ', '-' | downcase}}">
+				{{select | remove: ' --selected'}}
+			</option>
+
+		{% endfor %}
+		
+	</select>
+	<label class="mdc-floating-label mdc-label-overrides {{labelclass}} {{include.value}}">{{include.label | default: 'Select label'}}</label>
+	<div class="mdc-line-ripple"></div>
+</div>
+
+{% if include.helptext  %}
+	<p class="mdc-text-field-helper-text" id="{{include.name}}-helptext">{{include.helptext}}</p>
+{% endif %}
+
+{% if include.validation == 'isinvalid' %}
+	<span class="mdc-text-field-helper-text input-error-message">{{include.errormsg}}</span>
+{% endif %}
+
+
+{% assign atomic_props = 'text, href, modal, closemodal, collapse' %}
+
+
+<div class="atomic__description">
+	To render out multiple select options, please separate them by a comma inside a string: <br />
+	<code>opts = 'Option 1, Option 2, Option 3'</code><br />
+	If you'd like to preselect an option, append <code>--selected</code> to the option, like so: <br />
+	<code>opts = 'Option 1 --selected, Option 2, Option 3'</code><br />
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+			</section>
+	</div>
+</div>

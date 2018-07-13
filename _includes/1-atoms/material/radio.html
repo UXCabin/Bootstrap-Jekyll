@@ -1,0 +1,48 @@
+<label class="d-block mt-3 mb-0"><small>{{include.label}}</small></label>
+<div class="mdc-form-field">
+	{% if include.opts %}
+		{% assign radios = include.opts | split: ', ' %}
+	{% else %}
+		{% assign radios = 'Option 1, Option 2, Option 3' | split: ', ' %}
+	{% endif %}
+
+	{% for radio in radios %}
+
+		<div class="mdc-radio">
+			<input class="mdc-radio__native-control" type="radio" id="radio-{{forloop.index}}" name="{{include.label | downcase | default: 'radio'}}" value=""
+			{% if radio contains '--selected' %} checked {% endif %}>
+			<div class="mdc-radio__background">
+				<div class="mdc-radio__outer-circle"></div>
+				<div class="mdc-radio__inner-circle"></div>
+			</div>
+		</div>
+		<label for="radio-{{forloop.index}}" class="mb-0 pl-0">{{radio | remove: ' --selected'}}</label>
+	{% endfor %}
+
+</div>
+
+{% assign atomic_props = 'label, opts' %}
+
+
+<div class="atomic__description">
+	To render out multiple radio options, please separate them by a comma inside a string: <br />
+	<code>opts = 'Option 1, Option 2, Option 3'</code><br />
+	If you'd like to preselect an option, append <code>--selected</code> to the option, like so: <br />
+	<code>opts = 'Option 1 --selected, Option 2, Option 3'</code><br />
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>

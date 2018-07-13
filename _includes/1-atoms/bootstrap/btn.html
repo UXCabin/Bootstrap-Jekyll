@@ -1,0 +1,57 @@
+{% if include.class %}
+	{% assign class = include.class %}
+{% else %}
+	{% assign class = '' %}
+{% endif %}
+
+{% if include.disabled %}
+	{% assign prop = 'disabled' %}
+{% else %}
+	{% assign prop = '' %}
+{% endif %}
+
+{% if include.type %}
+	{% assign type = include.type | prepend: 'btn-' %}
+{% else %}
+	{% assign type = '' %}
+{% endif %}
+
+<a 
+	class="btn {{class}} {{prop}} {{type}}" 
+	{% if include.collapse %}
+		data-toggle="collapse" 
+		href="#{{include.collapse}}"
+		aria-expanded="false" 
+		aria-controls="{{include.collapse}}"
+	{% elsif include.modal %}
+		data-toggle="modal" 
+		data-target="#{{include.modal}}"
+		href="#"
+	{% elsif include.closemodal %}
+		data-dismiss="modal" 
+		aria-label="Close"
+		href="#" 
+	{% else %}
+		href = "{{include.href | default: '#'}}"
+	{% endif %}
+	{{prop}}
+	>
+	{{include.text | default: 'Button text'}}
+</a>
+
+
+{% assign atomic_props = 'text, href, modal, closemodal, collapse, type' %}
+
+
+<div class="atomic__description">
+	
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li><code>{{prop}}</code></li>
+		{% endfor %}
+	</ul>
+</div>

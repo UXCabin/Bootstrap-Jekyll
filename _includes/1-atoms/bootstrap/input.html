@@ -1,0 +1,71 @@
+{% if include.label %}
+	<label for="{{include.label | replace: ' ', '' | downcase }}">{{include.label}}</label>
+{% endif %}
+
+{% if include.disabled %}
+	{% assign prop = 'disabled' %}
+{% else %}
+	{% assign prop = '' %}
+{% endif %}
+
+{% if include.required %}
+	{% assign reqprop = 'required' %}
+{% else %}
+	{% assign reqprop = '' %}
+{% endif %}
+
+
+
+<div class="input-group mb-3">
+
+	{% if include.align == 'left' %}
+		<div class="input-group-prepend">
+			<span class="input-group-text">{{include.addon}}</span>
+		</div>
+	{% endif %}
+
+	<input 
+		type="text" 
+		class="form-control" 
+		placeholder="{{include.placeholder | default: 'Input placeholder'}}" 
+		aria-label="{{include.label | default: include.placeholder}}"
+		value="{{include.value | default: ''}}"
+		{{prop}}
+		{{reqprop}}>
+
+	{% if include.align == 'right' %}
+		<div class="input-group-append">
+			<span class="input-group-text">{{include.addon}}</span>
+	  	</div>
+	{% endif %}
+
+	{% if include.helptext %}
+		<small class="form-text text-muted d-block w-100">{{include.helptext}}</small>		
+	{% endif %}
+
+</div>
+
+
+{% assign atomic_props = 'label, placeholder, helptext, addon, align, disabled' %}
+
+
+<div class="atomic__description">
+	To include an addon, you must specificy align (left/right), else the addon will not show up. <br />
+	Example: <code>addon: '@' align: 'left'</code>
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>

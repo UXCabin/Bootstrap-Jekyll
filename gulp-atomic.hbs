@@ -1,0 +1,31 @@
+<div class="atomic">
+	<div class="container">
+		<h1>Atomic components</h1>
+		{{#each elements}}
+			<section id="{{ id }}">
+				<h4>{{ title }}</h4>
+				{{{ content }}}
+				{{#if uses}}
+					<h3>Uses:</h3>
+					<ul>
+						{{#each uses}}
+							<li>
+								<a href="#{{ this }}">{{ this }}</a>
+							</li>
+						{{/each}}
+					</ul>
+				{{/if}}
+				{{#if usedBy}}
+					<h3>Used by:</h3>
+					<ul>
+						{{#each usedBy}}
+							<li>
+								<a href="#{{ this }}">{{ this }}</a>
+							</li>
+						{{/each}}
+					</ul>
+				{{/if}}
+			</section>
+		{{/each}}
+	</div>
+</div>

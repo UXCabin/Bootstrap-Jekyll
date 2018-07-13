@@ -1,0 +1,34 @@
+{% if include.type %}
+	{% assign class = include.type | prepend: 'badge-' %}
+{% else %}
+	{% assign class = 'badge-success' %}
+{% endif %}
+
+
+<span class="badge {{class}}">
+	 {{ include.text | default: 'Badge text' }}
+</span>
+
+
+{% assign atomic_props = 'class --mandatory, href' %}
+
+
+<div class="atomic__description">
+	
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>

@@ -5,14 +5,17 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>{{ page.title }}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<link rel="stylesheet" href="/assets/css/style.css">
-
+	
+	{% include base/fonts.html %}
+	{% include base/sheets.html %}
 
 </head>
 <body>
+	
+	{{ content }}
 
-{{ content }}
-
+	
+	{% include atomic/index.html %}
+	{% include base/scripts.html %}
 </body>
 </html>

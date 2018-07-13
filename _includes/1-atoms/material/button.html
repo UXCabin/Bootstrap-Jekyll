@@ -1,0 +1,64 @@
+{% if include.class %}
+	{% assign class = include.class %}
+{% else %}
+	{% assign class = '' %}
+{% endif %}
+
+{% if include.disabled %}
+	{% assign prop = 'disabled' | prepend: 'mdc-' %}
+{% else %}
+	{% assign prop = '' %}
+{% endif %}
+
+{% if include.type %}
+	{% assign type = include.type | prepend: 'mdc-' %}
+{% else %}
+	{% assign type = '' %}
+{% endif %}
+
+<a 
+	class="mdc-button {{class}} {{prop}}" 
+	{% if include.collapse %}
+		data-toggle="collapse" 
+		href="#{{include.collapse}}"
+		aria-expanded="false" 
+		aria-controls="{{include.collapse}}"
+	{% elsif include.modal %}
+		data-toggle="modal" 
+		data-target="#{{include.modal}}"
+		href="#"
+	{% elsif include.closemodal %}
+		data-dismiss="modal" 
+		aria-label="Close"
+		href="#" 
+	{% else %}
+		href = "{{include.href | default: '#'}}"
+	{% endif %}
+	{{prop | remove: 'mdc-'}}
+	>
+	{{include.text | default: 'Button text'}}
+</a>
+
+
+{% assign atomic_props = 'text, href, modal, closemodal, collapse' %}
+
+
+<div class="atomic__description">
+	
+</div>
+<div class="atomic__props">
+	<h6>All available props</h6>
+	<ul>
+		{% assign renderprops = atomic_props | strip | split: ',' %}
+		{% for prop in renderprops %}
+			<li>
+				<code>
+					{{prop | remove: '--mandatory' }} 
+					{% if prop contains '--mandatory' %}
+						<span class="badge badge-warning">-mandatory</span>
+					{% endif %}
+				</code>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
