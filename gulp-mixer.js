@@ -17,7 +17,6 @@ module.exports = function(outname){
 	};
 
 	var flush = function(cb){
-		gutil.log(gutil.colors.cyan(paths));
 
 		var newFile = new gutil.File({
 			path: __dirname + '/' + outname,
