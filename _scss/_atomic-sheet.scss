@@ -23,6 +23,9 @@
 	section{
 		padding: 1rem;
 		border-bottom: 1px solid $fade;
+		> .atomic__description, > .atomic__props, > .atomic__contains, > .atomic-title{
+			display: block;
+		}
 	}
 	.atom, .molecule, .organism, .template{
 		padding: 10px;
@@ -40,9 +43,6 @@
 		h6{
 			margin-top: 1rem;
 		}
-	}
-	.atomic__description,.atomic__props,.atomic__contains,.atomic-title{
-		display: block;
 	}
 }
 
