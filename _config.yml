@@ -19,8 +19,7 @@ timezone: America/New_York
 excerpt_separator: <!--more-->
 exclude: ["node_modules", "gulpfile.js", "package.json"]
 
-
-
+destination: docs
 
 
 google_analytics_track_id: UA-69335315-1

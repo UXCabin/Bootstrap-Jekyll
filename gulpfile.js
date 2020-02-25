@@ -79,7 +79,7 @@ gulp.task('jekyll-rebuild', ['jekyll-build'], function () {
 gulp.task('browser-sync', ['sass', 'jekyll-build'], function () {
   browserSync({
     server: {
-      baseDir: '_site'
+      baseDir: 'docs'
     }
   });
 });
